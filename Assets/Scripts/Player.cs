@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
         zVel = move.y;
     }
 
-    public void OnDash()
+    private void OnDash()
     {
         Debug.Log("Dash!");
         rb.AddForce(new Vector3(xVel, 0, zVel) * dashForce * Time.deltaTime);
