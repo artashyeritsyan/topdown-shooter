@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,24 +10,20 @@ public class Player : MonoBehaviour
     RaycastHit hit;
     public LayerMask mask;
 
-    Rigidbody rb;
     public float speed = 100f;
+    public float dashForce = 200f;
+
+
+    Rigidbody rb;
     float xVel;
     float zVel;
 
-    public GameObject bullet;
-    public Transform shootPoint;
-
-    public bool isShooting = false;
-    public float AttackSpeed = 10;
+    public static event Action<Quaternion> OnShoot;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        isShooting = false;
     }
-
-
 
     void Update()
     {
@@ -44,23 +41,12 @@ public class Player : MonoBehaviour
             GunPivot.rotation = Quaternion.LookRotation(hitPoint - GunPivot.position);
         }
 
-
-        if (Mouse.current.leftButton.isPressed && !isShooting)
+        // TODO Move the isShooting logic to gun code.
+        if (Mouse.current.leftButton.isPressed)
         {
-            StartCoroutine(Shoot());
-            isShooting = true;
+            OnShoot?.Invoke(GunPivot.rotation);
         }
 
-    }
-
-    IEnumerator Shoot()
-    {
-        Instantiate(bullet, shootPoint.position, GunPivot.rotation);
-        
-        // shots count in second
-        yield return new WaitForSeconds(1 / AttackSpeed);
-
-        isShooting = false;
     }
 
     public void OnMove(InputValue input)
@@ -69,4 +55,13 @@ public class Player : MonoBehaviour
         xVel = move.x;
         zVel = move.y;
     }
+
+    public void OnDash()
+    {
+        Debug.Log("Dash!");
+        rb.AddForce(new Vector3(xVel, 0, zVel) * dashForce * Time.deltaTime);
+        // Play Dash sound
+        // Inst Dash Particle
+    }
+
 }
