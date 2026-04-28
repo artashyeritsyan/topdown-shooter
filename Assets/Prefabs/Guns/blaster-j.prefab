@@ -164,7 +164,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4370335365301499507}
-  m_Mesh: {fileID: -5611077328353709408, guid: 5f864d15ce992ce439d4c0b8124d1e37, type: 3}
+  m_Mesh: {fileID: -5655780220702195129, guid: 38292a086d182944e9d9bc029f0d2f7b, type: 3}
 --- !u!23 &1821113952840178444
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -229,6 +229,6 @@ MonoBehaviour:
   damage: 10
   muzzle: {fileID: 2708598583397607911, guid: 079f82497980e0042a842ce372e4d7dc, type: 3}
   shootSoundEffect: {fileID: 8300000, guid: c3a420693bce9cb4fadf9e349a0a8361, type: 3}
-  bullet: {fileID: 7366726607020808332, guid: b4c4381616a34e1408684a096ce50ecf, type: 3}
+  bullet: {fileID: 7366726607020808332, guid: 65276dd34e525fa4ba0923b7f88ee488, type: 3}
   shootingSpeed: 12
   bulletSpeed: 20

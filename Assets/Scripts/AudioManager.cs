@@ -37,9 +37,12 @@ public class AudioManager : MonoBehaviour
         return source;
     }
 
-    public static void Play(AudioClip clip, float volume = 1f)
+    public static void Play(AudioClip clip, float volume = 1f, float pitch = 1f)
     {
         if (volume > 1f) volume = 1f;
+
+        if (pitch > 3f) pitch = 3;
+        else if (pitch < -3) pitch = -3;
 
         AudioSource freeSource = null;
 
@@ -60,6 +63,7 @@ public class AudioManager : MonoBehaviour
         freeSource.transform.position = Vector3.zero;
         freeSource.clip = clip;
         freeSource.volume = volume;
-        freeSource.Play();
+        freeSource.pitch = pitch;
+        freeSource.Play();  
     }
 }

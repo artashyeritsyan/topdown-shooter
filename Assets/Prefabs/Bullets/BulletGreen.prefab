@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6fafeafd491ef34098b8e28ae997142, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  lifeTime: 5
+  lifeTime: 3
   DestroyEffect: {fileID: 1429954232896169633, guid: 83036083a4ebcd34f98131bd3cf6f4d2, type: 3}
   hitSound: {fileID: 8300000, guid: ac37cbb71274ee74dba09088be45d6ad, type: 3}
   hitVolume: 0.3

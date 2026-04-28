@@ -111,7 +111,7 @@ MonoBehaviour:
   muzzle: {fileID: 2708598583397607911, guid: 079f82497980e0042a842ce372e4d7dc, type: 3}
   shootSoundEffect: {fileID: 8300000, guid: cf62e6695947a4941b18382e95d5eeee, type: 3}
   bullet: {fileID: 7366726607020808332, guid: b4c4381616a34e1408684a096ce50ecf, type: 3}
-  shootingSpeed: 8
+  shootingSpeed: 6
   bulletSpeed: 20
 --- !u!1 &1922464710267956475
 GameObject:

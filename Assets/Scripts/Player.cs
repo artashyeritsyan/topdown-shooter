@@ -1,40 +1,55 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    public Transform GunPivot;
+    [SerializeField] Transform GunPivot;
+    [SerializeField] LayerMask mask;
     Ray ray;
     RaycastHit hit;
-    public LayerMask mask;
 
-    public float speed = 100f;
-    public float dashForce = 200f;
+    [SerializeField] float speed = 100f;
+    [SerializeField] float dashForce = 200f;
+    [SerializeField] GameObject dashParticle;
+    [SerializeField] AudioClip dashSound;
+    [SerializeField] AudioClip reloadSoundEffect;
 
+    [SerializeField] GameObject[] weapons;
+    [SerializeField] float weaponSwitchDelay = 0.2f;
+    private int currentWeaponIdx;
+    private bool canSwitchWeapon;
 
     Rigidbody rb;
     float xVel;
     float zVel;
 
-    public static event Action<Quaternion> OnShoot;
+    Vector3 moveDirection;
+
+    public static event Action OnShoot;
+    public static event Action<int> OnWeaponSelect;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        currentWeaponIdx = 0;
+        canSwitchWeapon = true;
     }
 
     void Update()
     {
         //rb.linearVelocity = new Vector3(xVel, 0, zVel) * speed * Time.deltaTime;
-        rb.AddForce(new Vector3(xVel, 0, zVel) * speed * Time.deltaTime);   
+        rb.AddForce(moveDirection * speed * Time.deltaTime);   
 
         ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, mask))
         {
-            Debug.Log(hit.point);
+            //Debug.Log(hit.point);
 
             Vector3 hitPoint = hit.point;
             hitPoint.y = GunPivot.transform.position.y;
@@ -44,9 +59,8 @@ public class Player : MonoBehaviour
         // TODO Move the isShooting logic to gun code.
         if (Mouse.current.leftButton.isPressed)
         {
-            OnShoot?.Invoke(GunPivot.rotation);
+            OnShoot?.Invoke();
         }
-
     }
 
     public void OnMove(InputValue input)
@@ -54,14 +68,80 @@ public class Player : MonoBehaviour
         Vector2 move = input.Get<Vector2>();
         xVel = move.x;
         zVel = move.y;
+
+        moveDirection = new Vector3(xVel, 0, zVel);
     }
 
-    private void OnDash()
+    public void OnDash()
     {
         Debug.Log("Dash!");
-        rb.AddForce(new Vector3(xVel, 0, zVel) * dashForce * Time.deltaTime);
-        // Play Dash sound
-        // Inst Dash Particle
+        if (moveDirection == Vector3.zero) return;
+
+        float randomPitch = UnityEngine.Random.Range(0.8f, 1.2f);
+        // 1 is default value for volume
+        AudioManager.Play(dashSound, 1, randomPitch);
+        Instantiate(dashParticle, new Vector3(transform.position.x, 0.1f, transform.position.z) , Quaternion.identity);
+
+        rb.AddForce(moveDirection * dashForce, ForceMode.Impulse);
+    }
+
+    private void SetWeapon(int weaponIndex)
+    {
+        // TODO: Add the possinility to set the hand and the weapon for that hand
+        // (So just give the index of hand, or bool isRightHand);
+        // But need to make 2 currentWeaponsIdx`s for each hand
+
+        if (!canSwitchWeapon) return;
+
+        Transform hand = GunPivot.GetChild(0);
+
+        if (currentWeaponIdx != weaponIndex)
+        {
+            if (currentWeaponIdx >= 0)
+                hand.GetChild(currentWeaponIdx).gameObject.SetActive(false);
+
+            hand.GetChild(weaponIndex).gameObject.SetActive(true);
+            currentWeaponIdx = weaponIndex;
+            OnWeaponSelect?.Invoke(weaponIndex);
+
+            float randomPitch = UnityEngine.Random.Range(0.8f, 1.2f);
+            AudioManager.Play(reloadSoundEffect, 0.5f, randomPitch);
+            canSwitchWeapon = false;
+            StartCoroutine(CooldownForSwitching());
+        }
+    }
+
+    IEnumerator CooldownForSwitching()
+    {
+        yield return new WaitForSeconds(weaponSwitchDelay);
+        canSwitchWeapon = true;
+    }
+
+    private void OnWeapon1()
+    {
+        SetWeapon(0);
+    }
+    private void OnWeapon2()
+    {
+        SetWeapon(1);
+    }
+    private void OnWeapon3()
+    {
+        SetWeapon(2);
+    }
+    private void OnWeapon4()
+    {
+        SetWeapon(3);
+    }
+
+    private void OnNext()
+    {
+        Debug.Log("Next");
+        int nextWeapon = currentWeaponIdx + 1;
+        // Currently the 4 is the count of weapons, but it needs to be refactored to collect them into array
+        if (nextWeapon >= 4) nextWeapon = 0;
+
+        SetWeapon(nextWeapon);
     }
 
 }

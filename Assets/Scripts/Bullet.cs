@@ -43,7 +43,6 @@ public class Bullet : MonoBehaviour
     {
         if (other.CompareTag("bullet")) return;
         OnBulletDestroy();
-
     }
 
     // remove this

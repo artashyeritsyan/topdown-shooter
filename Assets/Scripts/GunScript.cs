@@ -18,7 +18,7 @@ public class GunScript : MonoBehaviour
     public float shootingSpeed = 10f;
     public float bulletSpeed = 200f;
 
-
+    bool isMuzzleWorked = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -39,18 +39,22 @@ public class GunScript : MonoBehaviour
     {
 
     }
-    void HandleShooting(Quaternion rotation)
+    
+    void HandleShooting()
     {
         if (!isShooting)
         {
-            StartCoroutine(Shoot());
-            isShooting = true;
+            if (gameObject.activeSelf)
+            {
+                StartCoroutine(Shoot());
+                isShooting = true;
+            }
         }
     }
 
     IEnumerator Shoot()
     {
-        bool isMuzzleWorked = false;
+        isMuzzleWorked = false;
         foreach (Transform shootPoint in shootPoints)
         {
             if (shootPoint.gameObject.activeSelf)
@@ -61,7 +65,8 @@ public class GunScript : MonoBehaviour
                 if (!isMuzzleWorked)
                 {
                     Instantiate(muzzle, shootPoint.position, shootPoint.rotation, shootPoint);
-                    AudioManager.Play(shootSoundEffect);
+                    float randomPitch = UnityEngine.Random.Range(0.9f, 1.1f);
+                    AudioManager.Play(shootSoundEffect, 0.8f, randomPitch);
                     isMuzzleWorked = true;
                 }
             }
@@ -78,10 +83,21 @@ public class GunScript : MonoBehaviour
     void OnEnable()
     {
         Player.OnShoot += HandleShooting;
+        isShooting = false;
+        isMuzzleWorked = true;
+    }
+
+    void OnDisable()
+    {
+        Player.OnShoot -= HandleShooting;
+        StopAllCoroutines();
+        isShooting = false;
     }
 
     void HandlePosition(Vector3 pos)
     {
         Debug.Log("Received position: " + pos);
     }
+
+
 }
