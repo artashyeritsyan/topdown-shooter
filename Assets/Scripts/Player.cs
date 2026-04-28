@@ -18,10 +18,14 @@ public class Player : MonoBehaviour
     [SerializeField] AudioClip dashSound;
     [SerializeField] AudioClip reloadSoundEffect;
 
+    [Header("Weapons")]
     [SerializeField] GameObject[] weapons;
     [SerializeField] float weaponSwitchDelay = 0.2f;
     private int currentWeaponIdx;
     private bool canSwitchWeapon;
+
+    [Header("Animator")]
+    public Animator animator;
 
     Rigidbody rb;
     float xVel;
@@ -45,6 +49,10 @@ public class Player : MonoBehaviour
         //rb.linearVelocity = new Vector3(xVel, 0, zVel) * speed * Time.deltaTime;
         rb.AddForce(moveDirection * speed * Time.deltaTime);   
 
+        Debug.Log("AAAA");
+
+        Debug.Log(rb.linearVelocity.x + " " + rb.linearVelocity.z);
+
         ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, mask))
@@ -61,6 +69,16 @@ public class Player : MonoBehaviour
         {
             OnShoot?.Invoke();
         }
+
+
+        if ((rb.linearVelocity.x >= 0.5f || rb.linearVelocity.x <= -0.5f) || (rb.linearVelocity.z >= 0.5f || rb.linearVelocity.z <= -0.5f))
+        {
+            animator.SetBool("walking", true);
+        } 
+        else
+        {
+            animator.SetBool("walking", false);
+        }
     }
 
     public void OnMove(InputValue input)
@@ -74,7 +92,7 @@ public class Player : MonoBehaviour
 
     public void OnDash()
     {
-        Debug.Log("Dash!");
+        Debug.Log("Dash!"); 
         if (moveDirection == Vector3.zero) return;
 
         float randomPitch = UnityEngine.Random.Range(0.8f, 1.2f);
