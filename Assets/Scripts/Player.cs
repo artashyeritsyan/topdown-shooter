@@ -13,9 +13,13 @@ public class Player : MonoBehaviour
     RaycastHit hit;
 
     [SerializeField] float speed = 100f;
+
     [SerializeField] float dashForce = 200f;
     [SerializeField] GameObject dashParticle;
+    [SerializeField] float dashRecoverTime = 1f;
     [SerializeField] AudioClip dashSound;
+    private bool canDash = true;
+
     [SerializeField] AudioClip reloadSoundEffect;
 
     [Header("Weapons")]
@@ -42,16 +46,13 @@ public class Player : MonoBehaviour
 
         currentWeaponIdx = 0;
         canSwitchWeapon = true;
+        canDash = true;
     }
 
     void Update()
     {
         //rb.linearVelocity = new Vector3(xVel, 0, zVel) * speed * Time.deltaTime;
         rb.AddForce(moveDirection * speed * Time.deltaTime);   
-
-        Debug.Log("AAAA");
-
-        Debug.Log(rb.linearVelocity.x + " " + rb.linearVelocity.z);
 
         ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
@@ -70,14 +71,13 @@ public class Player : MonoBehaviour
             OnShoot?.Invoke();
         }
 
-
-        if ((rb.linearVelocity.x >= 0.5f || rb.linearVelocity.x <= -0.5f) || (rb.linearVelocity.z >= 0.5f || rb.linearVelocity.z <= -0.5f))
+        if ((moveDirection == Vector3.zero))
         {
-            animator.SetBool("walking", true);
+            animator.SetBool("walking", false);
         } 
         else
         {
-            animator.SetBool("walking", false);
+            animator.SetBool("walking", true);
         }
     }
 
@@ -92,15 +92,28 @@ public class Player : MonoBehaviour
 
     public void OnDash()
     {
-        Debug.Log("Dash!"); 
-        if (moveDirection == Vector3.zero) return;
+        if (moveDirection == Vector3.zero || !canDash) return;
+
 
         float randomPitch = UnityEngine.Random.Range(0.8f, 1.2f);
         // 1 is default value for volume
-        AudioManager.Play(dashSound, 1, randomPitch);
+        AudioManager.Play(dashSound, 1.2f, randomPitch);
         Instantiate(dashParticle, new Vector3(transform.position.x, 0.1f, transform.position.z) , Quaternion.identity);
 
         rb.AddForce(moveDirection * dashForce, ForceMode.Impulse);
+        //animator.SetBool("dashing", true);
+        canDash = false;
+
+        StartCoroutine(CooldownForDashing());
+
+    }
+
+    IEnumerator CooldownForDashing()
+    {
+        yield return new WaitForSeconds(dashRecoverTime);
+        //animator.SetBool("dashing", false);
+        canDash = true;
+
     }
 
     private void SetWeapon(int weaponIndex)
