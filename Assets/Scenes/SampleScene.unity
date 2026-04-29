@@ -2261,7 +2261,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2565258321875664382, guid: a96882cbc14494841b3521154fbcca16, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.2143307
+      value: -3.57
       objectReference: {fileID: 0}
     - target: {fileID: 2565258321875664382, guid: a96882cbc14494841b3521154fbcca16, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2269,7 +2269,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2565258321875664382, guid: a96882cbc14494841b3521154fbcca16, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 69.58841
+      value: 69.24
       objectReference: {fileID: 0}
     - target: {fileID: 2565258321875664382, guid: a96882cbc14494841b3521154fbcca16, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3941,7 +3941,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 981abf7a53e6a964fba6bc48555ec31a, type: 2}
+  - {fileID: 2100000, guid: 86b95fa05e8924546b1d87ee35ee8356, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4157,11 +4157,11 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 7484dd663a95b764ba15a3dd8a88a7df, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Resource: {fileID: 8300000, guid: 52195ebd6426ffa449bb608565da29d0, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.2
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -4554,7 +4554,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2565258321875664382, guid: a96882cbc14494841b3521154fbcca16, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.2056704
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 2565258321875664382, guid: a96882cbc14494841b3521154fbcca16, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4562,7 +4562,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2565258321875664382, guid: a96882cbc14494841b3521154fbcca16, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 69.33841
+      value: 69.25
       objectReference: {fileID: 0}
     - target: {fileID: 2565258321875664382, guid: a96882cbc14494841b3521154fbcca16, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6422,7 +6422,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8521880667128042912, guid: 13414cbafc17ae54c813903763db69a2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 68.036354
+      value: 69.67
       objectReference: {fileID: 0}
     - target: {fileID: 8521880667128042912, guid: 13414cbafc17ae54c813903763db69a2, type: 3}
       propertyPath: m_LocalRotation.w

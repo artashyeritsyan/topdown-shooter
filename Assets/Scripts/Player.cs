@@ -94,6 +94,7 @@ public class Player : MonoBehaviour
     {
         if (moveDirection == Vector3.zero || !canDash) return;
 
+        animator.SetBool("dashing", true);
 
         float randomPitch = UnityEngine.Random.Range(0.8f, 1.2f);
         // 1 is default value for volume
@@ -101,17 +102,18 @@ public class Player : MonoBehaviour
         Instantiate(dashParticle, new Vector3(transform.position.x, 0.1f, transform.position.z) , Quaternion.identity);
 
         rb.AddForce(moveDirection * dashForce, ForceMode.Impulse);
-        //animator.SetBool("dashing", true);
         canDash = false;
 
         StartCoroutine(CooldownForDashing());
-
     }
 
     IEnumerator CooldownForDashing()
     {
-        yield return new WaitForSeconds(dashRecoverTime);
-        //animator.SetBool("dashing", false);
+        // This time is a dash animation duration
+        yield return new WaitForSeconds(0.17f);
+        animator.SetBool("dashing", false);
+        yield return new WaitForSeconds(dashRecoverTime - 0.17f);
+        //animator.Play(2);
         canDash = true;
 
     }
