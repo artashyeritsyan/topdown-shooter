@@ -107,18 +107,6 @@ public class Bullet : MonoBehaviour
         OnBulletDestroy();
     }
 
-    // remove this
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            collision.gameObject.GetComponent<EnemyController>()?.Damaged(damage);
-        }
-
-        OnBulletDestroy();
-
-        
-    }
 
     public void OnBulletDestroy()
     {

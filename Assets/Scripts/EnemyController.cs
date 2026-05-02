@@ -13,17 +13,22 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] float speed = 10;
 
+    MeshRenderer mr;
+    [SerializeField] Material damagedMaterial;
+    Material initialMaterial;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        mr = GetComponent<MeshRenderer>();
+        initialMaterial = mr.material;
         currentHp = maxHp;
+        agent.speed = speed;
     }
 
     void Update()
     {
         agent.SetDestination(target.position);
-        agent.speed = speed;
     }
 
     public float GetCurrentHp()
@@ -36,6 +41,7 @@ public class EnemyController : MonoBehaviour
         currentHp -= damage;
 
         Debug.Log("Enemy Damaged from bullet");
+        StopCoroutine(EnemyDrawBack());
         StartCoroutine(EnemyDrawBack());
 
         if (currentHp < 0)
@@ -48,9 +54,11 @@ public class EnemyController : MonoBehaviour
     {
         // Also can add the Shining material to enemy (on 0.1 second to show that he damaged)
         agent.speed = 0;
-        yield return new WaitForSeconds(0.1f);
+        mr.material = damagedMaterial;
 
+        yield return new WaitForSeconds(0.1f);
         agent.speed = speed;
+        mr.material = initialMaterial;
     }
 
     public void ResetHP(float newHp = 0)
@@ -60,13 +68,13 @@ public class EnemyController : MonoBehaviour
             maxHp = newHp;
         }
 
-        currentHp = maxHp;  
+        currentHp = maxHp;
     }
 
     void EnemyDied()
     {
         Debug.Log("Enemy Dead");
-
+        gameObject.SetActive(false);
         // Call the Enemy pool and deActivate the object;
         // Drop loot (if needed)
     }
@@ -85,19 +93,25 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("Player Collision Enter");
-            other.GetComponent<Player>().Damaged(damage);
-        }
-        else if (other.gameObject.CompareTag("Vehicle"))
-        {
-            Debug.Log("Vehicle Collision Enter");
-            other.GetComponent<VehicleController>().Damaged(damage);
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("Player"))
+    //    {
+    //        Debug.Log("Player Collision Enter");
+    //        other.GetComponent<Player>().Damaged(damage);
+    //    }
+    //    else if (other.gameObject.CompareTag("Vehicle"))
+    //    {
+    //        Debug.Log("Vehicle Collision Enter");
+    //        other.GetComponent<VehicleController>().Damaged(damage);
+    //    }
+
+    //    //if (other.gameObject.CompareTag("bullet"))
+    //    //{
+    //    //    Debug.Log("Bullet collider Enter");
+    //    //    //other.GetComponent<Player>().Damaged(damage);
+    //    //}
+    //}
 
 
 }

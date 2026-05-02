@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -89,7 +90,7 @@ public class Player : MonoBehaviour
     {
         currentHp -= damage;
 
-        Debug.Log("Player Damaged");
+        Debug.Log("Player hp = " + currentHp);
 
         if (currentHp < 0)
         {
@@ -100,6 +101,8 @@ public class Player : MonoBehaviour
     void PlayerDied()
     {
         Debug.Log("Player Died");
+        gameObject.transform.position = new Vector3(0, 1f, 0);
+        
     }
 
     public void OnMove(InputValue input)

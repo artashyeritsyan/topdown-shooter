@@ -67,7 +67,7 @@ public class GunScript : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Call Get Bullet");
+                    //Debug.Log("Call Get Bullet");
                     spawnedBullet = BulletPool.instance.GetBullet(bullet, shootPoint.position, shootPoint.rotation);
 
                 }
