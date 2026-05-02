@@ -18,7 +18,6 @@ public class EnemyController : MonoBehaviour
     [SerializeField] Material damagedMaterial;
     Material initialMaterial;
 
-
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -39,23 +38,31 @@ public class EnemyController : MonoBehaviour
 
     private void OnEnable()
     {
+        if (agent == null) return;
+
         agent.enabled = true;
+        if (agent.enabled)
+            agent.ResetPath();
     }
 
     private void OnDisable()
     {
+        if (agent == null) return;
+
+        if (agent.enabled)
+            //agent.ResetPath();
         agent.enabled = false;
-        StopAllCoroutines();
+        //StopAllCoroutines();
     }
 
-    public void EnableAgent()
-    {
-        agent.enabled = true;
-    }
-    public void DisableAgent()
-    {
-        agent.enabled = false;
-    }
+    //public void EnableAgent()
+    //{
+    //    agent.enabled = true;
+    //}
+    //public void DisableAgent()
+    //{
+    //    agent.enabled = false;
+    //}
 
     public float GetCurrentHp()
     {
@@ -105,9 +112,9 @@ public class EnemyController : MonoBehaviour
     void EnemyDied()
     {
         Debug.Log("Enemy Dead");
-        gameObject.SetActive(false);
         rb.linearVelocity.Set(0, 0, 0);
         rb.angularVelocity.Set(0, 0, 0);
+        gameObject.SetActive(false);
         ResetHP();
         // Call the Enemy pool and deActivate the object;
         // Drop loot (if needed)
@@ -120,7 +127,8 @@ public class EnemyController : MonoBehaviour
             Debug.Log("Player Collision Enter");
             collision.gameObject.GetComponent<Player>().Damaged(damage);
         }
-        else if (collision.gameObject.CompareTag("Vehicle"))
+
+        if (collision.gameObject.CompareTag("Vehicle"))
         {
             Debug.Log("Vehicle Collision Enter");
             collision.gameObject.GetComponent<VehicleController>().Damaged(damage);
@@ -134,7 +142,8 @@ public class EnemyController : MonoBehaviour
             Debug.Log("Player Collision Enter");
             collision.gameObject.GetComponent<Player>().Damaged(damage);
         }
-        else if (collision.gameObject.CompareTag("Vehicle"))
+
+        if (collision.gameObject.CompareTag("Vehicle"))
         {
             Debug.Log("Vehicle Collision Enter");
             collision.gameObject.GetComponent<VehicleController>().Damaged(damage);

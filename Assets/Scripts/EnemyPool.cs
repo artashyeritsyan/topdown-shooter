@@ -33,7 +33,7 @@ public class EnemyPool : MonoBehaviour
             {
                 GameObject obj = Instantiate(pool.prefab);
                 obj.SetActive(false);
-                obj.GetComponent<EnemyController>().DisableAgent();
+                //obj.GetComponent<EnemyController>().DisableAgent();
                 pool.objects.Add(obj);
             }
         }
@@ -58,8 +58,8 @@ public class EnemyPool : MonoBehaviour
     public void SpawnEnemy(int poolIndex, Vector3 position)
     {
         GameObject enemy = GetEnemy(poolIndex);
-        enemy.transform.position = position;
         enemy.GetComponent<EnemyController>().SetTarget(pools[poolIndex].targetTransform);
+        enemy.transform.position = position;
         enemy.SetActive(true);
     }
 }

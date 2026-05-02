@@ -7,8 +7,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Transform player;
 
     [Header("Borders")]
-    [SerializeField] private Transform minBorder; // bottom-left
-    [SerializeField] private Transform maxBorder; // top-right
+    [SerializeField] private Transform minBorder;
+    [SerializeField] private Transform maxBorder;
 
     [Header("Spawn Settings")]
     [SerializeField] private float spawnInterval = 2f;
@@ -36,12 +36,12 @@ public class EnemySpawner : MonoBehaviour
     {
         int poolIndex = (Random.value <= 0.8f) ? 0 : 1;
 
-        Vector3 spawnPos = GetSpawnFromBorder();
+        Vector3 spawnPos = GetSpawnPosition();
 
         enemyPool.SpawnEnemy(poolIndex, spawnPos);
     }
 
-    private Vector3 GetSpawnFromBorder()
+    private Vector3 GetSpawnPosition()
     {
         Vector3 playerPos = player.position;
 
@@ -50,64 +50,41 @@ public class EnemySpawner : MonoBehaviour
         float minZ = minBorder.position.z;
         float maxZ = maxBorder.position.z;
 
-        int side = Random.Range(0, 4); // 0=left, 1=right, 2=bottom, 3=top
+        // Pick a random side of the safe zone
+        int side = Random.Range(0, 4); // 0=left,1=right,2=bottom,3=top
 
         float x = 0f;
         float z = 0f;
 
+        float extraOffset = Random.Range(1f, 5f); // small distance OUTSIDE safe zone
+
         switch (side)
         {
-            case 0: // LEFT
-                x = minX;
-                z = GetValidZ(playerPos, minZ, maxZ);
+            case 0: // LEFT of safe zone
+                x = playerPos.x + safeMinX - extraOffset;
+                z = Random.Range(playerPos.z + safeMinZ, playerPos.z + safeMaxZ);
                 break;
 
             case 1: // RIGHT
-                x = maxX;
-                z = GetValidZ(playerPos, minZ, maxZ);
+                x = playerPos.x + safeMaxX + extraOffset;
+                z = Random.Range(playerPos.z + safeMinZ, playerPos.z + safeMaxZ);
                 break;
 
             case 2: // BOTTOM
-                z = minZ;
-                x = GetValidX(playerPos, minX, maxX);
+                z = playerPos.z + safeMinZ - extraOffset;
+                x = Random.Range(playerPos.x + safeMinX, playerPos.x + safeMaxX);
                 break;
 
             case 3: // TOP
-                z = maxZ;
-                x = GetValidX(playerPos, minX, maxX);
+                z = playerPos.z + safeMaxZ + extraOffset;
+                x = Random.Range(playerPos.x + safeMinX, playerPos.x + safeMaxX);
                 break;
         }
 
+        // Clamp to borders
+        x = Mathf.Clamp(x, minX, maxX);
+        z = Mathf.Clamp(z, minZ, maxZ);
+
         return new Vector3(x, playerPos.y, z);
-    }
-
-    private float GetValidX(Vector3 playerPos, float minX, float maxX)
-    {
-        float forbiddenMin = playerPos.x + safeMinX;
-        float forbiddenMax = playerPos.x + safeMaxX;
-
-        return GetOutsideRange(forbiddenMin, forbiddenMax, minX, maxX);
-    }
-
-    private float GetValidZ(Vector3 playerPos, float minZ, float maxZ)
-    {
-        float forbiddenMin = playerPos.z + safeMinZ;
-        float forbiddenMax = playerPos.z + safeMaxZ;
-
-        return GetOutsideRange(forbiddenMin, forbiddenMax, minZ, maxZ);
-    }
-
-    private float GetOutsideRange(float forbiddenMin, float forbiddenMax, float borderMin, float borderMax)
-    {
-        bool useLower = Random.value < 0.5f;
-
-        if (useLower && forbiddenMin > borderMin)
-            return Random.Range(borderMin, forbiddenMin);
-
-        if (!useLower && forbiddenMax < borderMax)
-            return Random.Range(forbiddenMax, borderMax);
-
-        // fallback if one side is invalid
-        return Random.Range(borderMin, borderMax);
     }
 }
