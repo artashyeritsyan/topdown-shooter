@@ -6,6 +6,8 @@ public class Bullet : MonoBehaviour
     private float speed = 100f;
     private float damage = 10f;
 
+    public bool isLaser = false;
+
     public GameObject DestroyEffect;
 
     public AudioClip hitSound;
@@ -24,6 +26,8 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
+        if (isLaser)
+            Destroy(gameObject, lifeTime);
     }
 
     private void OnEnable()
@@ -112,7 +116,14 @@ public class Bullet : MonoBehaviour
     {
         AudioManager.Play(hitSound, hitVolume);
         Instantiate(DestroyEffect, transform.position, Quaternion.identity);
-        ReturnToPool();
+        if (isLaser)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            ReturnToPool();
+        }
     }
 
 

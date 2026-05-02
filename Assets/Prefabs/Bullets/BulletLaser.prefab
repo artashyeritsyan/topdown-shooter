@@ -133,6 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   lifeTime: 2
+  isLaser: 1
   DestroyEffect: {fileID: 1429954232896169633, guid: 83036083a4ebcd34f98131bd3cf6f4d2, type: 3}
   hitSound: {fileID: 8300000, guid: ac37cbb71274ee74dba09088be45d6ad, type: 3}
   hitVolume: 0.3
@@ -242,7 +243,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2

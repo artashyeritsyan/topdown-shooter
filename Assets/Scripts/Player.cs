@@ -1,11 +1,7 @@
-using JetBrains.Annotations;
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
-using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -18,6 +14,10 @@ public class Player : MonoBehaviour
     float currentHp;
 
     [SerializeField] float speed = 100f;
+
+    [SerializeField] float invincibleDelay = 0.2f;
+    private bool isInvincible;
+
     [SerializeField] float dashForce = 200f;
     [SerializeField] GameObject dashParticle;
     [SerializeField] float dashRecoverTime = 1f;
@@ -52,6 +52,7 @@ public class Player : MonoBehaviour
         currentWeaponIdx = 0;
         canSwitchWeapon = true;
         canDash = true;
+        isInvincible = false;
     }
 
     void Update()
@@ -88,14 +89,26 @@ public class Player : MonoBehaviour
 
     public void Damaged(float damage)
     {
-        currentHp -= damage;
+        if (isInvincible) return;
 
+        StartCoroutine(InvincibleFrames());
+
+        currentHp -= damage;
         Debug.Log("Player hp = " + currentHp);
 
-        if (currentHp < 0)
+        if (currentHp <= 0)
         {
             PlayerDied(); // Death Or minus one life (from 3)
         }
+    }
+
+    IEnumerator InvincibleFrames()
+    {
+        isInvincible = true;
+
+        yield return new WaitForSeconds(invincibleDelay);
+
+        isInvincible = false;
     }
 
     void PlayerDied()
