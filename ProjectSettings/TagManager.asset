@@ -7,6 +7,8 @@ TagManager:
   - bullet
   - FxTemporaire
   - shootpoint
+  - Vehicle
+  - Enemy
   layers:
   - Default
   - TransparentFX

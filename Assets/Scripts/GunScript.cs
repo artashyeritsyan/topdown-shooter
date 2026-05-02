@@ -60,17 +60,21 @@ public class GunScript : MonoBehaviour
         {
             if (shootPoint.gameObject.activeSelf)
             {
+                GameObject spawnedBullet;
                 if (isSniper)
                 {
-                    Instantiate(bullet, shootPoint.position, shootPoint.rotation)
-                    .GetComponent<Bullet>().SetSpeed(bulletSpeed);
+                    spawnedBullet = Instantiate(bullet, shootPoint.position, shootPoint.rotation);
                 }
                 else
                 {
                     Debug.Log("Call Get Bullet");
-                    BulletPool.instance.GetBullet(bullet, shootPoint.position, shootPoint.rotation).GetComponent<Bullet>().SetSpeed(bulletSpeed);
+                    spawnedBullet = BulletPool.instance.GetBullet(bullet, shootPoint.position, shootPoint.rotation);
 
                 }
+
+                Bullet bs = spawnedBullet.GetComponent<Bullet>();
+                bs.SetSpeed(bulletSpeed);
+                bs.SetDamage(damage);
 
                 if (!isMuzzleWorked)
                 {

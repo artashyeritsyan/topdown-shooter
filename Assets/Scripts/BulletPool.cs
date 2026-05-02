@@ -34,8 +34,9 @@ public class BulletPool : MonoBehaviour
                 Bullet bs = bullet.GetComponent<Bullet>();
                 bs.SetMaterial(bulletScript.GetMaterial()); 
 
-                bs.SetSpeed(bulletScript.GetSpeed());
-                bs.SetDamage(bulletScript.GetDamage());
+                // Damage and speed are set in GunScript
+                //bs.SetSpeed(bulletScript.GetSpeed());
+                //bs.SetDamage(bulletScript.GetDamage());
                 bs.ResetRigidBody();
 
                 bullet.gameObject.transform.localScale = bulletScript.gameObject.transform.localScale;

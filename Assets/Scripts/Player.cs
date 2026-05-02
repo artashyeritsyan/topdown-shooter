@@ -4,16 +4,19 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] Transform GunPivot;
     [SerializeField] LayerMask mask;
-    Ray ray;
     RaycastHit hit;
+    Ray ray;
+
+    [SerializeField] float maxHp = 200;
+    float currentHp;
 
     [SerializeField] float speed = 100f;
-
     [SerializeField] float dashForce = 200f;
     [SerializeField] GameObject dashParticle;
     [SerializeField] float dashRecoverTime = 1f;
@@ -44,6 +47,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
+        currentHp = maxHp;
         currentWeaponIdx = 0;
         canSwitchWeapon = true;
         canDash = true;
@@ -79,6 +83,23 @@ public class Player : MonoBehaviour
         {
             animator.SetBool("walking", true);
         }
+    }
+
+    public void Damaged(float damage)
+    {
+        currentHp -= damage;
+
+        Debug.Log("Player Damaged");
+
+        if (currentHp < 0)
+        {
+            PlayerDied(); // Death Or minus one life (from 3)
+        }
+    }
+
+    void PlayerDied()
+    {
+        Debug.Log("Player Died");
     }
 
     public void OnMove(InputValue input)

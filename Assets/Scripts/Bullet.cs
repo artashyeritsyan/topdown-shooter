@@ -98,13 +98,26 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("bullet")) return;
+
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            other.gameObject.GetComponent<EnemyController>().Damaged(damage);
+        }
+
         OnBulletDestroy();
     }
 
     // remove this
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            collision.gameObject.GetComponent<EnemyController>()?.Damaged(damage);
+        }
+
         OnBulletDestroy();
+
+        
     }
 
     public void OnBulletDestroy()
