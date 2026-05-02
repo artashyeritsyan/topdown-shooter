@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class GunScript : MonoBehaviour
 {
     [Header("Weapon Params")]
+    [SerializeField] bool isSniper = false; 
     [SerializeField] float damage = 10f;
     List<Transform> shootPoints;
 
@@ -59,8 +60,17 @@ public class GunScript : MonoBehaviour
         {
             if (shootPoint.gameObject.activeSelf)
             {
-                Instantiate(bullet, shootPoint.position, shootPoint.rotation)
+                if (isSniper)
+                {
+                    Instantiate(bullet, shootPoint.position, shootPoint.rotation)
                     .GetComponent<Bullet>().SetSpeed(bulletSpeed);
+                }
+                else
+                {
+                    Debug.Log("Call Get Bullet");
+                    BulletPool.instance.GetBullet(bullet, shootPoint.position, shootPoint.rotation).GetComponent<Bullet>().SetSpeed(bulletSpeed);
+
+                }
 
                 if (!isMuzzleWorked)
                 {

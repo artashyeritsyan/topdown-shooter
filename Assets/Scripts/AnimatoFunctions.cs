@@ -11,5 +11,4 @@ public class AnimatoFunctions : MonoBehaviour
 
         AudioManager.Play(audioClips[Random.Range(0, audioClips.Length)], audioClipsVolume, randomPitch);
     }
-
 }

@@ -12,11 +12,28 @@ public class Bullet : MonoBehaviour
     public float hitVolume = 0.3f;
 
     Rigidbody rb;
+    private MeshRenderer mr;    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    private void Awake()
+    {
+        mr = GetComponent<MeshRenderer>();
+        rb = GetComponent<Rigidbody>();
+
+    }
+
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        Destroy(gameObject, lifeTime);
+    }
+
+    private void OnEnable()
+    {
+        Invoke(nameof(ReturnToPool), lifeTime);
+    }
+
+    private void OnDisable()
+    {
+        CancelInvoke(nameof(ReturnToPool));
     }
 
     // Update is called once per frame
@@ -32,6 +49,45 @@ public class Bullet : MonoBehaviour
     public void SetDamage(float newDamage)
     {
         damage = newDamage;
+    }
+
+
+    public float GetSpeed()
+    {
+        return speed;
+    }
+
+    public float GetDamage()
+    {
+        return damage;
+    }
+
+    public Material GetMaterial()
+    {
+        if (mr == null)
+            mr = GetComponent<MeshRenderer>();
+
+        return mr.sharedMaterial;
+    }
+
+    public void SetMaterial(Material material)
+    {
+        if (mr == null)
+            mr = GetComponent<MeshRenderer>();
+
+        mr.sharedMaterial = material;
+    }
+
+    public void ResetRigidBody()
+    {
+        if (rb == null)
+        {
+            rb = GetComponent<Rigidbody>();
+            Debug.Log("Get THe RB");
+        }
+
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
     }
 
     void MoveBullet()
@@ -55,6 +111,12 @@ public class Bullet : MonoBehaviour
     {
         AudioManager.Play(hitSound, hitVolume);
         Instantiate(DestroyEffect, transform.position, Quaternion.identity);
-        Destroy(gameObject);
+        ReturnToPool();
+    }
+
+
+    public void ReturnToPool()
+    {
+        BulletPool.instance.ReturnBullet(gameObject);
     }
 }
