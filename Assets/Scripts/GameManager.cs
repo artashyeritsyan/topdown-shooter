@@ -3,24 +3,22 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+
     [SerializeField] GameObject weaponIcon;
     [SerializeField] Sprite[] weaponsSprites;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] Image PlayerHpBar;
+
+    private void Awake()
     {
-        
+        instance = this;
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-    void ChangeWeaponIcon(int iconIndex)
-    {
-        weaponIcon.GetComponent<Image>().sprite = weaponsSprites[iconIndex];
     }
 
     void OnEnable()
@@ -33,4 +31,16 @@ public class GameManager : MonoBehaviour
     {
         Player.OnWeaponSelect -= ChangeWeaponIcon;
     }
+
+    public void SetPlayerHpBar(float hp)
+    {
+        // Currently max hp is 100, but it needs to be refactored to get maxHp from Player script
+        PlayerHpBar.fillAmount = hp / 100;
+    }
+
+    void ChangeWeaponIcon(int iconIndex)
+    {
+        weaponIcon.GetComponent<Image>().sprite = weaponsSprites[iconIndex];
+    }
+    
 }

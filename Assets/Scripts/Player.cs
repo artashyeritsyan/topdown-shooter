@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     RaycastHit hit;
     Ray ray;
 
-    [SerializeField] float maxHp = 200;
+    [SerializeField] float maxHp = 100;
     float currentHp;
 
     [SerializeField] float speed = 100f;
@@ -96,6 +96,8 @@ public class Player : MonoBehaviour
         currentHp -= damage;
         Debug.Log("Player hp = " + currentHp);
 
+        GameManager.instance.SetPlayerHpBar(currentHp);
+
         if (currentHp <= 0)
         {
             PlayerDied(); // Death Or minus one life (from 3)
@@ -115,7 +117,8 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Player Died");
         gameObject.transform.position = new Vector3(0, 1f, 0);
-        
+        currentHp = maxHp;
+        GameManager.instance.SetPlayerHpBar(currentHp);
     }
 
     public void OnMove(InputValue input)
