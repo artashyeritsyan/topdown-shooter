@@ -10,11 +10,13 @@ public class VehicleController : MonoBehaviour
 
     [SerializeField] float invincibleDelay = 0.2f;
     private bool isInvincible;
+    private Vector3 finishPosition;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        finishPosition = GameManager.instance.GetFinishPosition();
         currentHp = maxHealth;
         isInvincible = false;
     }
@@ -23,6 +25,11 @@ public class VehicleController : MonoBehaviour
     void Update()
     {
         transform.position += Vector3.right * speed * Time.deltaTime;
+        if (transform.position.x >= finishPosition.x)
+        {
+            GameManager.instance.GameWin();
+            speed = 0;
+        }
     }
 
     public float GetMaxHealth()
@@ -33,6 +40,11 @@ public class VehicleController : MonoBehaviour
     public void SetMaxHealth(float health)
     {
         this.maxHealth = health;
+    }
+
+    public float GetDistanceToFinish()
+    {
+        return finishPosition.x - transform.position.x;
     }
 
     public void Damaged(float hp)
