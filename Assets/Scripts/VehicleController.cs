@@ -4,9 +4,9 @@ using UnityEngine;
 public class VehicleController : MonoBehaviour
 {
     [SerializeField] float maxHealth = 1000;
-    private float currentHealth;
+    private float currentHp;
 
-    [SerializeField] float speed = 1;
+    [SerializeField] float speed = 1.5f;
 
     [SerializeField] float invincibleDelay = 0.2f;
     private bool isInvincible;
@@ -15,7 +15,7 @@ public class VehicleController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currentHealth = maxHealth;
+        currentHp = maxHealth;
         isInvincible = false;
     }
 
@@ -41,10 +41,12 @@ public class VehicleController : MonoBehaviour
 
         StartCoroutine(InvincibleFrames());
 
-        currentHealth -= hp;
-        Debug.Log("Vehicle HP = " + currentHealth);
+        currentHp -= hp;
+        Debug.Log("Vehicle HP = " + currentHp);
+        
+        GameManager.instance.SetVehicleHpBar(currentHp);
 
-        if (currentHealth <= 0)
+        if (currentHp <= 0)
         {
             GameOver();
         }

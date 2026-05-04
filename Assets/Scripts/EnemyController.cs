@@ -78,9 +78,13 @@ public class EnemyController : MonoBehaviour
     {
         currentHp -= damage;
 
-        Debug.Log("Enemy Damaged from bullet");
-        StopCoroutine(EnemyDrawBack());
-        StartCoroutine(EnemyDrawBack());
+        //Debug.Log("Enemy Damaged from bullet");
+        //StopCoroutine(EnemyDrawBack());
+        if (gameObject.activeInHierarchy)
+        {
+            StartCoroutine(EnemyDrawBack());
+        }
+
 
         if (currentHp <= 0)
         {
@@ -112,9 +116,12 @@ public class EnemyController : MonoBehaviour
     void EnemyDied()
     {
         Debug.Log("Enemy Dead");
+        gameObject.SetActive(false);
+
         rb.linearVelocity.Set(0, 0, 0);
         rb.angularVelocity.Set(0, 0, 0);
-        gameObject.SetActive(false);
+        agent.speed = speed;
+        mr.material = initialMaterial;
         ResetHP();
         // Call the Enemy pool and deActivate the object;
         // Drop loot (if needed)

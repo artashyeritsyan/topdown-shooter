@@ -107,7 +107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a645d28fb54524a870e6d5817ae38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GunScript
-  damage: 10
+  isSniper: 0
+  damage: 15
   muzzle: {fileID: 2708598583397607911, guid: 079f82497980e0042a842ce372e4d7dc, type: 3}
   shootSoundEffect: {fileID: 8300000, guid: cf62e6695947a4941b18382e95d5eeee, type: 3}
   bullet: {fileID: 7366726607020808332, guid: b4c4381616a34e1408684a096ce50ecf, type: 3}

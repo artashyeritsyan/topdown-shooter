@@ -127,7 +127,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 3
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -153,8 +153,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   target: {fileID: 0}
   maxHp: 80
-  damage: 20
-  speed: 6
+  damage: 10
+  speed: 5
   damagedMaterial: {fileID: 2100000, guid: 1d8ababd8ab18c949b81d93e59256be6, type: 2}
 --- !u!54 &6404787214841863465
 Rigidbody:

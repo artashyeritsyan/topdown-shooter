@@ -1,3 +1,4 @@
+using UnityEditor.VisionOS;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,11 +9,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject weaponIcon;
     [SerializeField] Sprite[] weaponsSprites;
 
-    [SerializeField] Image PlayerHpBar;
+    [SerializeField] Image playerHpBar;
+    [SerializeField] Image vehicleHpBar;
+
+    [SerializeField] VehicleController vehicleScript;
+
+    private float vehicleMaxHp;
 
     private void Awake()
     {
         instance = this;
+    }
+
+    private void Start()
+    {
+        vehicleMaxHp = vehicleScript.GetMaxHealth();
     }
 
     // Update is called once per frame
@@ -35,8 +46,14 @@ public class GameManager : MonoBehaviour
     public void SetPlayerHpBar(float hp)
     {
         // Currently max hp is 100, but it needs to be refactored to get maxHp from Player script
-        PlayerHpBar.fillAmount = hp / 100;
+        playerHpBar.fillAmount = hp / 100;
     }
+
+    public void SetVehicleHpBar(float hp)
+    {
+        vehicleHpBar.fillAmount = hp / vehicleMaxHp;
+    }
+
 
     void ChangeWeaponIcon(int iconIndex)
     {

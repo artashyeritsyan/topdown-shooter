@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] Vector3 spawnpoint;
     [SerializeField] Transform GunPivot;
     [SerializeField] LayerMask mask;
     RaycastHit hit;
@@ -116,7 +117,7 @@ public class Player : MonoBehaviour
     void PlayerDied()
     {
         Debug.Log("Player Died");
-        gameObject.transform.position = new Vector3(0, 1f, 0);
+        gameObject.transform.position = spawnpoint;
         currentHp = maxHp;
         GameManager.instance.SetPlayerHpBar(currentHp);
     }
@@ -161,7 +162,7 @@ public class Player : MonoBehaviour
 
     private void SetWeapon(int weaponIndex)
     {
-        // TODO: Add the possinility to set the hand and the weapon for that hand
+        // TODO: Add the possibility to set the hand and the weapon for that hand
         // (So just give the index of hand, or bool isRightHand);
         // But need to make 2 currentWeaponsIdx`s for each hand
 
