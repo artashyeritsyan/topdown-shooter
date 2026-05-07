@@ -18,6 +18,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] Material damagedMaterial;
     Material initialMaterial;
 
+    [SerializeField] Animator animator;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -26,6 +28,8 @@ public class EnemyController : MonoBehaviour
         initialMaterial = mr.material;
         currentHp = maxHp;
         agent.speed = speed;
+
+        animator = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -161,21 +165,31 @@ public class EnemyController : MonoBehaviour
     //{
     //    if (other.gameObject.CompareTag("Player"))
     //    {
-    //        Debug.Log("Player Collision Enter");
-    //        other.GetComponent<Player>().Damaged(damage);
+            
     //    }
     //    else if (other.gameObject.CompareTag("Vehicle"))
     //    {
-    //        Debug.Log("Vehicle Collision Enter");
-    //        other.GetComponent<VehicleController>().Damaged(damage);
+            
     //    }
-
-    //    //if (other.gameObject.CompareTag("bullet"))
-    //    //{
-    //    //    Debug.Log("Bullet collider Enter");
-    //    //    //other.GetComponent<Player>().Damaged(damage);
-    //    //}
     //}
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player") && other.gameObject.CompareTag("Vehicle"))
+        {
+            animator.SetBool("Punch", true);
+            animator.SetBool("Running", false);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player") && other.gameObject.CompareTag("Vehicle"))
+        {
+            animator.SetBool("Punch", false);
+            animator.SetBool("Running", true);
+        }
+    }
 
 
 }

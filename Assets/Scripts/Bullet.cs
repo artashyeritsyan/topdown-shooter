@@ -101,6 +101,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.isTrigger) return;
         if (other.CompareTag("bullet")) return;
 
         if (other.gameObject.CompareTag("Enemy"))
