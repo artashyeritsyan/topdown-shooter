@@ -34,10 +34,27 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnRandomEnemy()
     {
-        int poolIndex = (Random.value <= 0.8f) ? 0 : 1;
+        float rand = Random.value;
+        int poolIndex;
+
+        if (rand <= 0.7f)
+        {
+            poolIndex = 0;
+        }
+        else if (rand <= 0.9f)
+        {
+            poolIndex = 1;
+        }
+        else if (rand <= 0.95f)
+        {
+            poolIndex = 2;
+        }
+        else
+        {
+            poolIndex = 3;
+        }
 
         Vector3 spawnPos = GetSpawnPosition();
-
         enemyPool.SpawnEnemy(poolIndex, spawnPos);
     }
 

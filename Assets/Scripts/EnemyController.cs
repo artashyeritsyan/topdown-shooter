@@ -19,6 +19,7 @@ public class EnemyController : MonoBehaviour
     Material initialMaterial;
 
     [SerializeField] Animator animator;
+    [SerializeField] float walkingAnimSpeed;
 
     void Start()
     {
@@ -29,9 +30,12 @@ public class EnemyController : MonoBehaviour
         currentHp = maxHp;
         agent.speed = speed;
 
-        animator = GetComponentInChildren<Animator>();
+        //animator = GetComponentInChildren<Animator>();
 
-        animator.SetBool("Punch", false);
+        animator.SetFloat("animSpeed", walkingAnimSpeed);
+
+
+        animator.SetBool("Attack", false);
         animator.SetBool("Running", true);
     }
 
@@ -50,6 +54,8 @@ public class EnemyController : MonoBehaviour
         agent.enabled = true;
         if (agent.enabled)
             agent.ResetPath();
+
+        animator.SetFloat("animSpeed", walkingAnimSpeed);
     }
 
     private void OnDisable()
@@ -120,6 +126,18 @@ public class EnemyController : MonoBehaviour
         currentHp = maxHp;
     }
 
+    void ResetAnim()
+    {
+        animator.SetBool("Attack", false);
+        animator.SetBool("Running", true);
+
+        animator.SetFloat("animSpeed", walkingAnimSpeed);
+
+        Debug.Log(animator.GetBool("Running"));
+        //Debug.Log(speed + " : " + animator.GetFloat("animSpeed"));
+        Debug.Log(speed + " : " + walkingAnimSpeed);
+    }
+
     void EnemyDied()
     {
         Debug.Log("Enemy Dead");
@@ -130,6 +148,7 @@ public class EnemyController : MonoBehaviour
         agent.speed = speed;
         mr.material = initialMaterial;
         ResetHP();
+        ResetAnim();
         // Call the Enemy pool and deActivate the object;
         // Drop loot (if needed)
     }
@@ -140,12 +159,14 @@ public class EnemyController : MonoBehaviour
         {
             Debug.Log("Player Collision Enter");
             collision.gameObject.GetComponent<Player>().Damaged(damage);
+            agent.speed = 0;
         }
 
         if (collision.gameObject.CompareTag("Vehicle"))
         {
             Debug.Log("Vehicle Collision Enter");
             collision.gameObject.GetComponent<VehicleController>().Damaged(damage);
+            agent.speed = speed / 2;
         }
     }
 
@@ -155,12 +176,24 @@ public class EnemyController : MonoBehaviour
         {
             Debug.Log("Player Collision Enter");
             collision.gameObject.GetComponent<Player>().Damaged(damage);
+            agent.speed = 0;
+
         }
 
         if (collision.gameObject.CompareTag("Vehicle"))
         {
             Debug.Log("Vehicle Collision Enter");
             collision.gameObject.GetComponent<VehicleController>().Damaged(damage);
+            agent.speed = speed / 2;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Vehicle"))
+        {
+            agent.speed = speed;
+
         }
     }
 
@@ -168,20 +201,30 @@ public class EnemyController : MonoBehaviour
     //{
     //    if (other.gameObject.CompareTag("Player"))
     //    {
-            
+
     //    }
     //    else if (other.gameObject.CompareTag("Vehicle"))
     //    {
-            
+
     //    }
     //}
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Vehicle"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            animator.SetBool("Punch", true);
+            animator.SetBool("Attack", true);
             animator.SetBool("Running", false);
+            agent.speed = 0;
+            Debug.Log(speed + " : " + animator.GetFloat("animSpeed"));
+
+        }
+
+        if (other.gameObject.CompareTag("Vehicle"))
+        {
+            animator.SetBool("Attack", true);
+            animator.SetBool("Running", false);
+            agent.speed = speed / 2;
         }
     }
 
@@ -189,8 +232,9 @@ public class EnemyController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Vehicle"))
         {
-            animator.SetBool("Punch", false);
+            animator.SetBool("Attack", false);
             animator.SetBool("Running", true);
+            agent.speed = speed;
         }
     }
 

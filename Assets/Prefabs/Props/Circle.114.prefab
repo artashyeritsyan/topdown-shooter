@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1974773653314259262
+--- !u!1 &3340494235019551354
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1165339940283257732}
-  - component: {fileID: 2847336083835296801}
-  - component: {fileID: 29047297400072427}
-  - component: {fileID: 7469540582486418871}
+  - component: {fileID: 9045414752821503131}
+  - component: {fileID: 8369254312808512504}
+  - component: {fileID: 5672660950363031140}
+  - component: {fileID: 4849275391341191440}
+  - component: {fileID: 5452091307437946041}
   m_Layer: 0
-  m_Name: construction-cone
+  m_Name: Circle.114
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1165339940283257732
+--- !u!4 &9045414752821503131
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1974773653314259262}
+  m_GameObject: {fileID: 3340494235019551354}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -42.37239, y: 0.000000039042902, z: 45.05127}
-  m_LocalScale: {x: 10, y: 10, z: 10}
-  m_ConstrainProportionsScale: 1
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -11.67, y: -0.014267534, z: 1.19}
+  m_LocalScale: {x: 0.35139307, y: 0.42167166, z: 0.35139307}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &2847336083835296801
+--- !u!33 &8369254312808512504
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1974773653314259262}
-  m_Mesh: {fileID: -6975138644988533352, guid: 694a9b545b299594ca550b32ad7a350d, type: 3}
---- !u!23 &29047297400072427
+  m_GameObject: {fileID: 3340494235019551354}
+  m_Mesh: {fileID: 2490575260831339074, guid: 6a1c4973f2d33cd47a5ee2f9a9aaa6e4, type: 3}
+--- !u!23 &5672660950363031140
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1974773653314259262}
+  m_GameObject: {fileID: 3340494235019551354}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -67,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6538903991835684241, guid: 694a9b545b299594ca550b32ad7a350d, type: 3}
+  - {fileID: -4246479402191905792, guid: 6a1c4973f2d33cd47a5ee2f9a9aaa6e4, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -91,13 +92,13 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7469540582486418871
+--- !u!65 &4849275391341191440
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1974773653314259262}
+  m_GameObject: {fileID: 3340494235019551354}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -110,5 +111,32 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.04, y: 0.07504828, z: 0.04}
-  m_Center: {x: -0.0024908052, y: 0.03752414, z: -0.000769043}
+  m_Size: {x: 1.76, y: 2, z: 1.73}
+  m_Center: {x: 0.0020596983, y: 1.0276496, z: 0.002059758}
+--- !u!54 &5452091307437946041
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3340494235019551354}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

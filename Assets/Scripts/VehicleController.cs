@@ -54,7 +54,7 @@ public class VehicleController : MonoBehaviour
         StartCoroutine(InvincibleFrames());
 
         currentHp -= hp;
-        Debug.Log("Vehicle HP = " + currentHp);
+        //Debug.Log("Vehicle HP = " + currentHp);
         
         GameManager.instance.SetVehicleHpBar(currentHp);
 

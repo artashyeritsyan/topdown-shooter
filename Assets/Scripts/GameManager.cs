@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
     {
         float fullDistance = Mathf.Abs(finishPosition.x - startPosition.x);
         float progress = Mathf.Abs(fullDistance - vehicleScript.GetDistanceToFinish()) / fullDistance;
-        Debug.Log("Progess = " + progress);
+        //Debug.Log("Progess = " + progress);
         progressBar.fillAmount = progress;
     }
 
