@@ -80,11 +80,11 @@ public class Player : MonoBehaviour
 
         if ((moveDirection == Vector3.zero))
         {
-            animator.SetBool("walking", false);
+            animator.SetBool("Running", false);
         } 
         else
         {
-            animator.SetBool("walking", true);
+            animator.SetBool("Running", true);
         }
     }
 

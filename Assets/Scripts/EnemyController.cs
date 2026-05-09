@@ -30,6 +30,9 @@ public class EnemyController : MonoBehaviour
         agent.speed = speed;
 
         animator = GetComponentInChildren<Animator>();
+
+        animator.SetBool("Punch", false);
+        animator.SetBool("Running", true);
     }
 
     void Update()
@@ -175,7 +178,7 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && other.gameObject.CompareTag("Vehicle"))
+        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Vehicle"))
         {
             animator.SetBool("Punch", true);
             animator.SetBool("Running", false);
@@ -184,7 +187,7 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && other.gameObject.CompareTag("Vehicle"))
+        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Vehicle"))
         {
             animator.SetBool("Punch", false);
             animator.SetBool("Running", true);
