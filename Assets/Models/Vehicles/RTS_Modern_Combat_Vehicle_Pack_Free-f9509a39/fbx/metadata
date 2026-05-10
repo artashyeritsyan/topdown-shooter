@@ -1,0 +1,142 @@
+{
+	"assetNamespace": "fab",
+	"listing":
+	{
+		"averageRating": 5,
+		"createdAt": "",
+		"description": "<p><span>USA Fighter Jet LODS:</span></p><p><span>-LOD0:1700 triangle</span></p><p><span>-LOD1:700 triangle</span></p><p><span><br></span></p><p><span>Armored Transport LODS:</span></p><p><span>-LOD0:2400 triangle</span></p><p><span>-LOD1:700 triangle</span></p><p><span><br></span></p><p><span>Helicopter LODS:</span></p><p><span>-LOD0:1898 triangle</span></p><p><span>-LOD1:1058 triangle</span></p><p><br></p>",
+		"isAiForbidden": true,
+		"isAiGenerated": false,
+		"lastUpdatedAt": "",
+		"listingType": "3d-model",
+		"media": "https://media.fab.com/image_previews/gallery_images/8e5e8c79-23e5-4eb9-b727-29268e6ae89a/b78a7466-fd89-4a33-94a7-311ef6b1691f.jpg",
+		"publishedAt": "2025-11-15T00:40:01.626210Z",
+		"reviewCount": 1,
+		"thumbnail": "https://media.fab.com/image_previews/gallery_images/dc07fb28-f106-4b36-9592-5e069647317f/fc8a8b88-15db-4a59-806e-877d686dd41b.jpg",
+		"title": "RTS:Modern Combat Vehicle Pack Free",
+		"uid": "f9509a39-c4a8-4288-96fb-a190ce7fc0e9",
+		"updatedAt": "",
+		"user":
+		{
+			"coverImageUrl": "",
+			"profileImageUrl": "",
+			"sellerName": "Raptor3D",
+			"uid": "72425b06-89c2-453b-8f0b-196990b5782c"
+		},
+		"tags": [
+			{
+				"name": "Rts",
+				"slug": "rts",
+				"uid": "06062a54-470b-47c1-8dcf-9f2d538de18a"
+			},
+			{
+				"name": "Vehicle",
+				"slug": "vehicle",
+				"uid": "08971b1b-8ab3-4de7-8500-b9b3e00382cb"
+			},
+			{
+				"name": "Lowpoly",
+				"slug": "lowpoly",
+				"uid": "451806dc-649e-43b7-9c2e-a54485de14b6"
+			},
+			{
+				"name": "Modern",
+				"slug": "modern",
+				"uid": "4a008392-1a66-40e5-8ba9-ffb361b25ef5"
+			},
+			{
+				"name": "Mobile",
+				"slug": "mobile",
+				"uid": "6854df7b-c624-4317-b5d4-f765154c7b72"
+			},
+			{
+				"name": "Gameready",
+				"slug": "gameready",
+				"uid": "6a250196-0821-43cb-b9cd-3975f235b88d"
+			},
+			{
+				"name": "Combat",
+				"slug": "combat",
+				"uid": "b57545a1-ab9a-4869-a553-76bcb0b0de2d"
+			},
+			{
+				"name": "Pack",
+				"slug": "pack",
+				"uid": "b8a16ac4-6252-4eb3-99e8-aa328ec56937"
+			},
+			{
+				"name": "Warfare",
+				"slug": "warfare",
+				"uid": "bc9f6f17-43df-4e71-8450-ea8cfabaed69"
+			},
+			{
+				"name": "Military",
+				"slug": "military",
+				"uid": "d72bfec9-cfd7-44c0-85d9-eac5049405aa"
+			}
+		],
+		"category":
+		{
+			"name": "Military",
+			"path": "vehicles-transportation/military",
+			"slug": "vehicles-transportation--military",
+			"uid": "a0fc88fc-e67f-449a-92e6-0b65fc14629c"
+		},
+		"assetFormats": [
+			{
+				"assetFormatType":
+				{
+					"name": "Unity",
+					"groupName": "Game Engine Formats",
+					"code": "unity",
+					"icon": "unity",
+					"extensions": [
+						"unitypackage"
+					]
+				}
+			},
+			{
+				"assetFormatType":
+				{
+					"name": "Additional files",
+					"groupName": "Other Formats",
+					"code": "additional-files",
+					"icon": "file",
+					"extensions": [
+						"zip"
+					]
+				}
+			},
+			{
+				"assetFormatType":
+				{
+					"name": "FBX",
+					"groupName": "3D Exchange Formats",
+					"code": "fbx",
+					"icon": "cube",
+					"extensions": [
+						"fbx"
+					]
+				}
+			}
+		],
+		"_PluginMetas":
+		{
+			"apiDataVersion": "0.0.1",
+			"entitlementUid": "deeb6fc0-6d8f-4bb3-8049-c5917f22d941",
+			"cacheSize": 0,
+			"downloaded": []
+		}
+	},
+	"target": "",
+	"quality": "",
+	"format": "fbx",
+	"fileId": "27316a0c-662c-4140-b905-70a408b2e6a3",
+	"platformIncluded": "",
+	"distributionPointBaseUrls": [],
+	"distributionMethod": "",
+	"entitlementUid": "deeb6fc0-6d8f-4bb3-8049-c5917f22d941",
+	"invertedNormal": false,
+	"isConverted": false,
+	"isQuixel": false
+}

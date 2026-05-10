@@ -80,7 +80,7 @@ public class GunScript : MonoBehaviour
                 {
                     Instantiate(muzzle, shootPoint.position, shootPoint.rotation, shootPoint);
                     float randomPitch = UnityEngine.Random.Range(0.9f, 1.1f);
-                    AudioManager.Play(shootSoundEffect, 0.8f, randomPitch);
+                    AudioManager.Play(shootSoundEffect, 0.7f, randomPitch);
                     isMuzzleWorked = true;
                 }
             }

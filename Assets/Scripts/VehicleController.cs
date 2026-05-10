@@ -12,6 +12,8 @@ public class VehicleController : MonoBehaviour
     private bool isInvincible;
     private Vector3 finishPosition;
 
+    [SerializeField] AudioSource engineSound;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,6 +21,7 @@ public class VehicleController : MonoBehaviour
         finishPosition = GameManager.instance.GetFinishPosition();
         currentHp = maxHealth;
         isInvincible = false;
+        engineSound.Play();
     }
 
     // Update is called once per frame
