@@ -135,7 +135,7 @@ public class Player : MonoBehaviour
     {
         if (moveDirection == Vector3.zero || !canDash) return;
 
-        animator.SetBool("dashing", true);
+        //animator.SetBool("dashing", true);
         canDash = false;
 
         float randomPitch = UnityEngine.Random.Range(0.8f, 1.2f);
@@ -152,7 +152,7 @@ public class Player : MonoBehaviour
     {
         // This time is a dash animation duration
         yield return new WaitForSeconds(0.17f);
-        animator.SetBool("dashing", false);
+        //animator.SetBool("dashing", false);
 
         yield return new WaitForSeconds(dashRecoverTime - 0.17f);
         //animator.Play(2);

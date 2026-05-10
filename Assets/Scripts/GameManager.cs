@@ -21,11 +21,17 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Image progressBar;
 
+    [SerializeField] Image btrIcon;
+    [SerializeField] Transform playerTransform;
+    [SerializeField] float edgePadding = 50f;
+    RectTransform overlayRect;
+
 
     private float vehicleMaxHp;
 
     private void Awake()
     {
+        overlayRect = overlayPanel.GetComponent<RectTransform>();
         instance = this;
     }
 
@@ -42,6 +48,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         UpdateProgressBar();
+        UpdateBTRIcon();
     }
 
     void OnEnable()
@@ -90,5 +97,36 @@ public class GameManager : MonoBehaviour
     {
         weaponIcon.GetComponent<Image>().sprite = weaponsSprites[iconIndex];
     }
-    
+
+    void UpdateBTRIcon()
+    {
+        if (vehicleScript == null) return;
+
+        Vector3 enemyPos = vehicleScript.transform.position;
+        Vector3 playerPos = playerTransform.position;
+
+        Vector3 dir = enemyPos - playerPos;
+        dir.y = 0;
+
+        // Direction relative to player
+        Vector3 localDir = playerTransform.InverseTransformDirection(dir.normalized);
+
+        // Get screen bounds (adaptive!)
+        float halfWidth = overlayRect.rect.width * 0.5f - edgePadding;
+        float halfHeight = overlayRect.rect.height * 0.5f - edgePadding;
+
+        // Map direction to screen space
+        Vector2 uiPos = new Vector2(localDir.x * halfWidth, localDir.z * halfHeight);
+
+        // Clamp to stay inside screen
+        uiPos.x = Mathf.Clamp(uiPos.x, -halfWidth, halfWidth);
+        uiPos.y = Mathf.Clamp(uiPos.y, -halfHeight, halfHeight);
+
+        RectTransform iconRect = btrIcon.GetComponent<RectTransform>();
+        iconRect.anchoredPosition = uiPos;
+
+        // No rotation
+        //iconRect.rotation = Quaternion.identity;
+    }
+
 }

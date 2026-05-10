@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] Animator animator;
     [SerializeField] float walkingAnimSpeed;
+    [SerializeField] float deadAnimDuration = 1.6f;
 
     void Start()
     {
@@ -130,27 +131,47 @@ public class EnemyController : MonoBehaviour
     {
         animator.SetBool("Attack", false);
         animator.SetBool("Running", true);
+        animator.SetBool("Dead", false);
+
 
         animator.SetFloat("animSpeed", walkingAnimSpeed);
 
-        Debug.Log(animator.GetBool("Running"));
+        //Debug.Log(animator.GetBool("Running"));
         //Debug.Log(speed + " : " + animator.GetFloat("animSpeed"));
-        Debug.Log(speed + " : " + walkingAnimSpeed);
+        //Debug.Log(speed + " : " + walkingAnimSpeed);
     }
 
     void EnemyDied()
     {
-        Debug.Log("Enemy Dead");
-        gameObject.SetActive(false);
+        animator.SetBool("Dead", true);
 
+        rb.isKinematic = true;
+        gameObject.GetComponent<BoxCollider>().enabled = false;
+        gameObject.GetComponent<CapsuleCollider>().enabled = false;
+
+        Debug.Log("Enemy Dead");
+        //agent.speed = 0;
+        agent.enabled = false;
         rb.linearVelocity.Set(0, 0, 0);
         rb.angularVelocity.Set(0, 0, 0);
-        agent.speed = speed;
+
+        StartCoroutine(DeactivateEnemy());
+        // Call the Enemy pool and deActivate the object;
+        // Drop loot (if needed)
+    }
+
+    IEnumerator DeactivateEnemy()
+    {
+        yield return new WaitForSeconds(deadAnimDuration);
+        gameObject.SetActive(false);
+        agent.enabled = true;
+        //agent.speed = speed;
         mr.material = initialMaterial;
         ResetHP();
         ResetAnim();
-        // Call the Enemy pool and deActivate the object;
-        // Drop loot (if needed)
+        rb.isKinematic = false;
+        gameObject.GetComponent<BoxCollider>().enabled = true;
+        gameObject.GetComponent<CapsuleCollider>().enabled = true;
     }
 
     private void OnCollisionEnter(Collision collision)
