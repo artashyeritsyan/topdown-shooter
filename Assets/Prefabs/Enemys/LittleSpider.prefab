@@ -160,6 +160,7 @@ MonoBehaviour:
   damagedMaterial: {fileID: 2100000, guid: 1d8ababd8ab18c949b81d93e59256be6, type: 2}
   animator: {fileID: 1593674202201505259}
   walkingAnimSpeed: 3
+  deadAnimDuration: 0.8
 --- !u!54 &6404787214841863465
 Rigidbody:
   m_ObjectHideFlags: 0
