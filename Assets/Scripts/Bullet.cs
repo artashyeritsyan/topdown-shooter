@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Bullet : MonoBehaviour
 {
     [SerializeField] float lifeTime = 5f;
     private float speed = 100f;
-    private float damage = 10f;
+    private float damage = 10f;  // The damage sets from gun on instantiation.
+    private float currentDamage;
 
     public bool isLaser = false;
 
@@ -27,7 +29,10 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         if (isLaser)
+        {
             Destroy(gameObject, lifeTime);
+            currentDamage = damage;
+        }
     }
 
     private void OnEnable()
@@ -106,6 +111,24 @@ public class Bullet : MonoBehaviour
 
         if (other.gameObject.CompareTag("Enemy"))
         {
+            if (isLaser)
+            {
+                if (other.gameObject.GetComponent<EnemyController>().GetCurrentHp() > currentDamage)
+                {
+                    other.gameObject.GetComponent<EnemyController>().Damaged(currentDamage);
+                    OnBulletDestroy();
+                    
+                } else  // If penetrate the enemy
+                {
+                    float enemyHp = other.gameObject.GetComponent<EnemyController>().GetCurrentHp();
+                    other.gameObject.GetComponent<EnemyController>().Damaged(currentDamage);
+                    //Debug.Log("Laser damage: " + currentDamage + " - " + enemyHp);
+                    currentDamage -= enemyHp; 
+                    //Debug.Log("Current damage: " + currentDamage);
+                    Instantiate(DestroyEffect, transform.position, Quaternion.identity);
+                }
+                return;
+            }
             other.gameObject.GetComponent<EnemyController>().Damaged(damage);
         }
 

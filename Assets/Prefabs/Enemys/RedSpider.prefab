@@ -604,12 +604,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   target: {fileID: 0}
   maxHp: 1000
-  damage: 15
+  damage: 20
+  attackCooldown: 0.5
   speed: 3
   damagedMaterial: {fileID: 2100000, guid: 1d8ababd8ab18c949b81d93e59256be6, type: 2}
   animator: {fileID: 1593674202201505259}
   walkingAnimSpeed: 1.5
   deadAnimDuration: 0.8
+  attackSounds: []
+  deathSounds: []
 --- !u!54 &6404787214841863465
 Rigidbody:
   m_ObjectHideFlags: 0

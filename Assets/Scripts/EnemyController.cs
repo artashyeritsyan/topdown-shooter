@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -9,7 +10,10 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] float maxHp = 100;
     [SerializeField] float damage = 20;
+    [SerializeField] float attackCooldown = 0.5f;
     private float currentHp;
+    private bool canAttack = false;
+
 
     [SerializeField] float speed = 10;
 
@@ -18,9 +22,15 @@ public class EnemyController : MonoBehaviour
     [SerializeField] Material damagedMaterial;
     Material initialMaterial;
 
+    [Header("Animations")]
     [SerializeField] Animator animator;
     [SerializeField] float walkingAnimSpeed;
     [SerializeField] float deadAnimDuration = 1.6f;
+
+    [Header("Sound effects")]
+    [SerializeField] AudioClip[] attackSounds;
+    [SerializeField] AudioClip[] deathSounds;
+
 
     void Start()
     {
@@ -30,7 +40,7 @@ public class EnemyController : MonoBehaviour
         initialMaterial = mr.material;
         currentHp = maxHp;
         agent.speed = speed;
-
+        canAttack = true;
         //animator = GetComponentInChildren<Animator>();
 
         animator.SetFloat("animSpeed", walkingAnimSpeed);
@@ -145,6 +155,8 @@ public class EnemyController : MonoBehaviour
     {
         animator.SetBool("Dead", true);
 
+        PlayRandomSound(deathSounds);
+
         rb.isKinematic = true;
         gameObject.GetComponent<BoxCollider>().enabled = false;
         gameObject.GetComponent<CapsuleCollider>().enabled = false;
@@ -176,36 +188,67 @@ public class EnemyController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (!canAttack)
+        {
+            return;
+        }
+
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("Player Collision Enter");
             collision.gameObject.GetComponent<Player>().Damaged(damage);
             agent.speed = 0;
+            StartCoroutine(OnAttack());
         }
-
-        if (collision.gameObject.CompareTag("Vehicle"))
+        else if (collision.gameObject.CompareTag("Vehicle"))
         {
             Debug.Log("Vehicle Collision Enter");
             collision.gameObject.GetComponent<VehicleController>().Damaged(damage);
             agent.speed = speed / 2;
+            StartCoroutine(OnAttack());
         }
     }
 
     private void OnCollisionStay(Collision collision)
     {
+        if (!canAttack)
+        {
+            return;
+        }
+
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("Player Collision Enter");
             collision.gameObject.GetComponent<Player>().Damaged(damage);
             agent.speed = 0;
-
-        }
-
-        if (collision.gameObject.CompareTag("Vehicle"))
+            StartCoroutine(OnAttack());
+        } 
+        else if (collision.gameObject.CompareTag("Vehicle"))
         {
             Debug.Log("Vehicle Collision Enter");
             collision.gameObject.GetComponent<VehicleController>().Damaged(damage);
             agent.speed = speed / 2;
+            StartCoroutine(OnAttack());
+        }
+    }
+
+    IEnumerator OnAttack()
+    {
+
+        canAttack = false;
+        PlayRandomSound(attackSounds);
+        yield return new WaitForSeconds(attackCooldown);
+        canAttack = true;
+    }
+
+    void PlayRandomSound(AudioClip[] sounds)
+    {
+        if (sounds.Length > 0)
+        {
+            int randomSound = Random.Range(0, attackSounds.Length);
+            float randomVolume = UnityEngine.Random.Range(0.8f, 1);
+            float randomPitch = UnityEngine.Random.Range(0.9f, 1.1f);
+            AudioManager.Play(sounds[randomSound], randomVolume, randomPitch);
         }
     }
 
