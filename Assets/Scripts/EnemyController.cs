@@ -241,14 +241,14 @@ public class EnemyController : MonoBehaviour
         canAttack = true;
     }
 
-    void PlayRandomSound(AudioClip[] sounds)
+    void PlayRandomSound(AudioClip[] sounds)                                                        
     {
         if (sounds.Length > 0)
         {
-            int randomSound = Random.Range(0, attackSounds.Length);
-            float randomVolume = UnityEngine.Random.Range(0.8f, 1);
-            float randomPitch = UnityEngine.Random.Range(0.9f, 1.1f);
-            AudioManager.Play(sounds[randomSound], randomVolume, randomPitch);
+            int randomSound = Random.Range(0, sounds.Length);
+            float randomVolume = UnityEngine.Random.Range(1f, 1f);
+            float randomPitch = UnityEngine.Random.Range(0.5f, 1.2f);
+            AudioManager.Play(sounds[randomSound], randomVolume, randomPitch, 0.98f);
         }
     }
 

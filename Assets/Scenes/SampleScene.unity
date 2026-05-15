@@ -1378,7 +1378,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7749883178931621399, guid: 015eb8c085bf010438ff340e2ddb9c01, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 250826238}
   m_SourcePrefab: {fileID: 100100000, guid: 015eb8c085bf010438ff340e2ddb9c01, type: 3}
 --- !u!4 &146864323 stripped
 Transform:
@@ -2429,6 +2432,30 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 358528656}
   m_SourcePrefab: {fileID: 100100000, guid: 37f2e8dfa2e8b3d4ab2325e5ee4cd252, type: 3}
+--- !u!1 &250826237 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7749883178931621399, guid: 015eb8c085bf010438ff340e2ddb9c01, type: 3}
+  m_PrefabInstance: {fileID: 146864322}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &250826238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250826237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41e69de332bc3374ca3892a3bd71f6b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimatoFunctions
+  audioClips:
+  - {fileID: 8300000, guid: f6f84950750419f48948afbf4d63a574, type: 3}
+  - {fileID: 8300000, guid: 2dc04180b7850d14c938050da503d941, type: 3}
+  - {fileID: 8300000, guid: 790746a20605ecd48ae71159c706fd91, type: 3}
+  - {fileID: 8300000, guid: ef267277c30110447be3705d4465f09b, type: 3}
+  - {fileID: 8300000, guid: c68a419e0e6f4bb49ab18faac6915927, type: 3}
+  audioClipsVolume: 0.35
 --- !u!1001 &256400023
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6440,6 +6467,7 @@ GameObject:
   - component: {fileID: 487478011}
   - component: {fileID: 487478012}
   - component: {fileID: 487478013}
+  - component: {fileID: 487478014}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -6628,6 +6656,14 @@ MonoBehaviour:
   m_DefaultActionMap: 
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!81 &487478014
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487478006}
+  m_Enabled: 1
 --- !u!1 &491768661 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3826441437919939773, guid: 61170e77b92d36c4bbff3f8c1dbd5ca5, type: 3}

@@ -32,17 +32,21 @@ public class AudioManager : MonoBehaviour
         obj.transform.position = Vector3.zero;
 
         AudioSource source = obj.AddComponent<AudioSource>();
+        source.maxDistance = 400;
         sources.Add(source);
 
         return source;
     }
-
-    public static void Play(AudioClip clip, float volume = 1f, float pitch = 1f)
+    // spitalBlend can be in range (0-1);
+    public static void Play(AudioClip clip, float volume = 1f, float pitch = 1f, float spitalBlend = 0f)
     {
-        if (volume > 1f) volume = 1f;
+        //if (volume > 1f) volume = 1f;
 
         if (pitch > 3f) pitch = 3;
         else if (pitch < -3) pitch = -3;
+
+        if (spitalBlend > 1) spitalBlend = 1;
+        else if (spitalBlend < 0) spitalBlend = 0;
 
         AudioSource freeSource = null;
 
@@ -64,6 +68,8 @@ public class AudioManager : MonoBehaviour
         freeSource.clip = clip;
         freeSource.volume = volume;
         freeSource.pitch = pitch;
+        freeSource.spatialBlend = spitalBlend;
+        
         freeSource.Play();  
     }
 }
