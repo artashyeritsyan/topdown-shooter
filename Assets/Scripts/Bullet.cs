@@ -11,6 +11,7 @@ public class Bullet : MonoBehaviour
     public bool isLaser = false;
 
     public GameObject DestroyEffect;
+    public GameObject BloodEffect;
 
     public AudioClip hitSound;
     public float hitVolume = 0.3f;
@@ -116,6 +117,7 @@ public class Bullet : MonoBehaviour
                 if (other.gameObject.GetComponent<EnemyController>().GetCurrentHp() > currentDamage)
                 {
                     other.gameObject.GetComponent<EnemyController>().Damaged(currentDamage);
+                    Instantiate(BloodEffect, transform.position, Quaternion.identity);
                     OnBulletDestroy();
                     
                 } else  // If penetrate the enemy
@@ -125,13 +127,17 @@ public class Bullet : MonoBehaviour
                     //Debug.Log("Laser damage: " + currentDamage + " - " + enemyHp);
                     currentDamage -= enemyHp; 
                     //Debug.Log("Current damage: " + currentDamage);
-                    Instantiate(DestroyEffect, transform.position, Quaternion.identity);
+                    Instantiate(BloodEffect, transform.position, Quaternion.identity);
                 }
                 return;
             }
             other.gameObject.GetComponent<EnemyController>().Damaged(damage);
+            Instantiate(BloodEffect, transform.position, gameObject.transform.rotation);
+            OnBulletDestroy();
+            return;
         }
 
+        Instantiate(DestroyEffect, transform.position, Quaternion.identity);
         OnBulletDestroy();
     }
 
@@ -139,7 +145,6 @@ public class Bullet : MonoBehaviour
     public void OnBulletDestroy()
     {
         AudioManager.Play(hitSound, hitVolume);
-        Instantiate(DestroyEffect, transform.position, Quaternion.identity);
         if (isLaser)
         {
             Destroy(gameObject);

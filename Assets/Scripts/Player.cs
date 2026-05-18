@@ -33,6 +33,9 @@ public class Player : MonoBehaviour
     private int currentWeaponIdx;
     private bool canSwitchWeapon;
 
+    private bool isShieldActive = false;
+
+
     [Header("Animator")]
     public Animator animator;
 
@@ -54,6 +57,7 @@ public class Player : MonoBehaviour
         canSwitchWeapon = true;
         canDash = true;
         isInvincible = false;
+        isShieldActive = false;
     }
 
     void Update()
@@ -94,7 +98,9 @@ public class Player : MonoBehaviour
 
         StartCoroutine(InvincibleFrames());
 
+        if (isShieldActive) damage /= 2;
         currentHp -= damage;
+
         Debug.Log("Player hp = " + currentHp);
 
         GameManager.instance.SetPlayerHpBar(currentHp);
@@ -160,6 +166,8 @@ public class Player : MonoBehaviour
 
     }
 
+    public bool IsShieldActive() { return isShieldActive; } 
+
     private void SetWeapon(int weaponIndex)
     {
         // TODO: Add the possibility to set the hand and the weapon for that hand
@@ -192,11 +200,21 @@ public class Player : MonoBehaviour
         canSwitchWeapon = true;
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Vehicle"))
+        if (other.gameObject.CompareTag("VehicleShield"))
         {
-            // Add bonus to the hp of player 
+            isShieldActive = true;
+            GameManager.instance.SetShieldActive(isShieldActive);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("VehicleShield"))
+        {
+            isShieldActive = false;
+            GameManager.instance.SetShieldActive(isShieldActive);
         }
     }
 

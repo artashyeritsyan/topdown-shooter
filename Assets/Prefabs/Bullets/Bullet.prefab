@@ -154,6 +154,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   lifeTime: 4
+  isLaser: 0
   DestroyEffect: {fileID: 1429954232896169633, guid: 83036083a4ebcd34f98131bd3cf6f4d2, type: 3}
+  BloodEffect: {fileID: 6823200998282874702, guid: 4956651564b4d304899c84d58b212ed3, type: 3}
   hitSound: {fileID: 8300000, guid: ac37cbb71274ee74dba09088be45d6ad, type: 3}
   hitVolume: 0.3

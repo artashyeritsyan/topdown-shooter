@@ -248,7 +248,7 @@ public class EnemyController : MonoBehaviour
             int randomSound = Random.Range(0, sounds.Length);
             float randomVolume = UnityEngine.Random.Range(1f, 1f);
             float randomPitch = UnityEngine.Random.Range(0.5f, 1.2f);
-            AudioManager.Play(sounds[randomSound], randomVolume, randomPitch, 0.98f);
+            AudioManager.Play(sounds[randomSound], randomVolume, randomPitch, 0.95f);
         }
     }
 

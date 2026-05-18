@@ -9,6 +9,7 @@ TagManager:
   - shootpoint
   - Vehicle
   - Enemy
+  - VehicleShield
   layers:
   - Default
   - TransparentFX

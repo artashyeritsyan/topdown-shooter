@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject weaponIcon;
     [SerializeField] Sprite[] weaponsSprites;
 
+    [SerializeField] Image playerShieldIcon;
     [SerializeField] Image playerHpBar;
     [SerializeField] Image vehicleHpBar;
 
@@ -75,6 +76,12 @@ public class GameManager : MonoBehaviour
         // Currently max hp is 100, but it needs to be refactored to get maxHp from Player script
         playerHpBar.fillAmount = hp / 100;
     }
+
+    public void SetShieldActive(bool isActive)
+    {
+        playerShieldIcon.gameObject.SetActive(isActive);
+    }
+
 
     public void SetVehicleHpBar(float hp)
     {
