@@ -12737,6 +12737,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f179238abfe7bf142a5f778815ea1e23, type: 3}
+--- !u!1 &1056400943 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8854084441375741533, guid: bbac3f759677b964faf309e4d64e0e26, type: 3}
+  m_PrefabInstance: {fileID: 3731294051159444584}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1060183043 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4765909616607288557, guid: e4976a9d0651a3540928b2db1e69d088, type: 3}
@@ -22477,7 +22482,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6751341355871164335, guid: bbac3f759677b964faf309e4d64e0e26, type: 3}
   m_PrefabInstance: {fileID: 3731294051159444584}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1056400943}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ef0ca55422f6d2419504036afb91b12, type: 3}
@@ -26549,7 +26554,10 @@ PrefabInstance:
     - {fileID: 2806118762039586669, guid: bbac3f759677b964faf309e4d64e0e26, type: 3}
     - {fileID: 1308848186298284186, guid: bbac3f759677b964faf309e4d64e0e26, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8854084441375741533, guid: bbac3f759677b964faf309e4d64e0e26, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8793087498059082946}
   m_SourcePrefab: {fileID: 100100000, guid: bbac3f759677b964faf309e4d64e0e26, type: 3}
 --- !u!1001 &3995049100992414322
 PrefabInstance:
@@ -26688,6 +26696,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 106100011874856301, guid: bbac3f759677b964faf309e4d64e0e26, type: 3}
   m_PrefabInstance: {fileID: 3731294051159444584}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &8793087498059082946
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056400943}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 1, z: 15}
+  m_Center: {x: 0.45, y: 0, z: 0.7}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

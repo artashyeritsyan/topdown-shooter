@@ -192,6 +192,14 @@ public class Player : MonoBehaviour
         canSwitchWeapon = true;
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Vehicle"))
+        {
+            // Add bonus to the hp of player 
+        }
+    }
+
     private void OnWeapon1()
     {
         SetWeapon(0);
