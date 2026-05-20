@@ -132,7 +132,7 @@ public class Bullet : MonoBehaviour
                 return;
             }
             other.gameObject.GetComponent<EnemyController>().Damaged(damage);
-            Instantiate(BloodEffect, transform.position, gameObject.transform.rotation);
+            Instantiate(BloodEffect, transform.position, (gameObject.transform.rotation));
             OnBulletDestroy();
             return;
         }

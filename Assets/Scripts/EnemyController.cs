@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -30,6 +31,7 @@ public class EnemyController : MonoBehaviour
     [Header("Sound effects")]
     [SerializeField] AudioClip[] attackSounds;
     [SerializeField] AudioClip[] deathSounds;
+    [SerializeField] AudioClip damagedSound;
 
 
     void Start()
@@ -102,13 +104,17 @@ public class EnemyController : MonoBehaviour
     {
         currentHp -= damage;
 
+        float randomVolume = UnityEngine.Random.Range(1.2f, 1.5f);
+        float randomPitch = UnityEngine.Random.Range(0.8f, 1.2f);
+        AudioManager.Play(damagedSound, randomVolume, randomPitch, 0.95f);
+
         //Debug.Log("Enemy Damaged from bullet");
         //StopCoroutine(EnemyDrawBack());
         if (gameObject.activeInHierarchy)
         {
             StartCoroutine(EnemyDrawBack());
         }
-
+        
 
         if (currentHp <= 0)
         {
@@ -246,7 +252,7 @@ public class EnemyController : MonoBehaviour
         if (sounds.Length > 0)
         {
             int randomSound = Random.Range(0, sounds.Length);
-            float randomVolume = UnityEngine.Random.Range(1f, 1f);
+            float randomVolume = UnityEngine.Random.Range(1.2f, 1.5f);
             float randomPitch = UnityEngine.Random.Range(0.5f, 1.2f);
             AudioManager.Play(sounds[randomSound], randomVolume, randomPitch, 0.95f);
         }

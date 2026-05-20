@@ -167,6 +167,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0d1a2f413d936514db9c207b1d1bbfb8, type: 3}
   deathSounds:
   - {fileID: 8300000, guid: 2d11daa644c878f42a2e2f2e3e2dbe80, type: 3}
+  damagedSound: {fileID: 8300000, guid: 2152002724399fb40a94ac631e4dccb6, type: 3}
 --- !u!54 &6404787214841863465
 Rigidbody:
   m_ObjectHideFlags: 0
