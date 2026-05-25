@@ -134,6 +134,9 @@ public class Player : MonoBehaviour
         xVel = move.x;
         zVel = move.y;
 
+        animator.SetFloat("X", move.x);
+        animator.SetFloat("Y", move.y);
+
         moveDirection = new Vector3(xVel, 0, zVel);
     }
 
